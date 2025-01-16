@@ -1,0 +1,135 @@
+/**
+ * This program is a Battleship game played against the computer.
+ * 
+ * @author Klein Cafa
+ */
+
+package battleshipassignment;
+
+import java.awt.Font;
+import java.util.Arrays;
+import javax.swing.*;
+import javax.swing.plaf.FontUIResource;
+
+public class BattleshipDriverCafK {
+
+	public static void main(String[] args) {
+		//Variables
+		UIManager.put("OptionPane.messageFont", new FontUIResource(new Font("Monospaced", Font.PLAIN, 12))); //Font for JOptionPane.  
+		String mainMenuOptions[] = {"Play!", "Tutorial", "Credits", "Exit"}; //Options when user is at main menu.
+		String mainMenuString = "Battleship! \n \n Welcome to Battleship! Please select an option below!";
+		int mainMenu = -1; 
+		
+		while (mainMenu != 3) { //While loop where if mainMenu equals 3, it will exit.
+			mainMenu = JOptionPane.showOptionDialog(null, mainMenuString, "Battleship! By Klein Cafa", JOptionPane.DEFAULT_OPTION, 
+					  JOptionPane.INFORMATION_MESSAGE, null, mainMenuOptions, mainMenuOptions[0]);
+
+			if (mainMenu == 0) {
+				PlayBattleshipCafK newGame = new PlayBattleshipCafK(); //Create new object called newGame to playBattleshipCafK.
+				JOptionPane.showMessageDialog(null, "Redirecting to main menu!");
+			}
+
+			if (mainMenu == 1) {
+				tutorial();
+				mainMenu = -1;
+			}
+			
+			if (mainMenu == 2) {
+				credits();
+				mainMenu = -1;
+			}
+			
+			if (mainMenu == 3) {
+				System.exit(0);
+			}
+
+		}
+		
+		
+	}
+	
+	/**
+	 * Instantiates a tutorial.
+	 */
+	public static void tutorial() {
+		//Arrays for the user's grid with ships.
+		String stringRow1, stringRow2, stringRow3, stringRow4, stringRow5, stringRow6, stringRow7, stringRow8, stringRow9, stringBoard;
+		String [] row1 = {"   ", " 1 ", " 2 ", " 3 ", " 4 ", " 5 ", " 6 ", " 7 ", " 8 "};
+		String [] row2 = {" A ", " X ", " - ", " X ", " X ", " X ", " - ", " - ", " - "};
+		String [] row3 = {" B ", " X ", " - ", " - ", " - ", " - ", " - ", " X ", " - "};
+		String [] row4 = {" C ", " X ", " - ", " - ", " - ", " - ", " - ", " X ", " - "};
+		String [] row5 = {" D ", " X ", " - ", " - ", " - ", " - ", " - ", " - ", " - "};
+		String [] row6 = {" E ", " X ", " - ", " X ", " X ", " X ", " X ", " - ", " - "};
+		String [] row7 = {" F ", " - ", " - ", " - ", " - ", " - ", " - ", " - ", " X "};
+		String [] row8 = {" G ", " - ", " - ", " - ", " - ", " - ", " - ", " - ", " X "};
+		String [] row9 = {" H ", " - ", " - ", " - ", " - ", " - ", " - ", " - ", " X "};
+		
+		//Replace [, ] and , to empty strings for the output to look nicer.
+		stringRow1 = (Arrays.toString(row1).replace("[", "").replace("]", "").replace(",", ""));
+		stringRow2 = (Arrays.toString(row2).replace("[", "").replace("]", "").replace(",", ""));
+		stringRow3 = (Arrays.toString(row3).replace("[", "").replace("]", "").replace(",", ""));
+		stringRow4 = (Arrays.toString(row4).replace("[", "").replace("]", "").replace(",", ""));
+		stringRow5 = (Arrays.toString(row5).replace("[", "").replace("]", "").replace(",", ""));
+		stringRow6 = (Arrays.toString(row6).replace("[", "").replace("]", "").replace(",", ""));
+		stringRow7 = (Arrays.toString(row7).replace("[", "").replace("]", "").replace(",", ""));
+		stringRow8 = (Arrays.toString(row8).replace("[", "").replace("]", "").replace(",", ""));
+		stringRow9 = (Arrays.toString(row9).replace("[", "").replace("]", "").replace(",", ""));
+		stringBoard = stringRow1 + "\n" + stringRow2 + "\n" + stringRow3 + "\n" + stringRow4 + "\n" + stringRow5 + "\n" + stringRow6 + "\n" +stringRow7 + "\n" +stringRow8 + "\n" +stringRow9 + "\n";				
+		
+		JOptionPane.showMessageDialog(null, "To play battleship, you will be asked to arrange your ships on an 8x8 grid! You are given 5 ships: \n"
+									  + "     - Carrier: 5 Spaces \n"
+									  + "     - Battleship: 4 Spaces \n"
+									  + "     - Destroyer: 3 Spaces \n"
+									  + "     - Submarine: 3 Spaces \n"
+									  + "     - Carrier: 2 Spaces \n \n"
+									  + "Here is an example of a completed board! \n \n"
+									  + stringBoard, "Tutorial", JOptionPane.INFORMATION_MESSAGE);
+		
+		//Arrays for the user's grid with ships and hit coordinates.
+		String [] row1New = {"   ", " 1 ", " 2 ", " 3 ", " 4 ", " 5 ", " 6 ", " 7 ", " 8 "};
+		String [] row2New = {" A ", " * ", " - ", " X ", " * ", " X ", " - ", " - ", " - "};
+		String [] row3New = {" B ", " X ", " - ", " - ", " - ", " - ", " - ", " * ", " - "};
+		String [] row4New = {" C ", " X ", " - ", " - ", " - ", " - ", " - ", " X ", " - "};
+		String [] row5New = {" D ", " X ", " - ", " / ", " - ", " - ", " - ", " - ", " - "};
+		String [] row6New = {" E ", " X ", " - ", " X ", " X ", " X ", " X ", " - ", " - "};
+		String [] row7New = {" F ", " - ", " - ", " - ", " - ", " / ", " - ", " - ", " X "};
+		String [] row8New = {" G ", " - ", " - ", " - ", " - ", " - ", " - ", " - ", " X "};
+		String [] row9New = {" H ", " - ", " - ", " - ", " - ", " - ", " - ", " - ", " X "};
+		
+		//Replace [, ] and , to empty strings for the output to look nicer.
+		stringRow1 = (Arrays.toString(row1New).replace("[", "").replace("]", "").replace(",", ""));
+		stringRow2 = (Arrays.toString(row2New).replace("[", "").replace("]", "").replace(",", ""));
+		stringRow3 = (Arrays.toString(row3New).replace("[", "").replace("]", "").replace(",", ""));
+		stringRow4 = (Arrays.toString(row4New).replace("[", "").replace("]", "").replace(",", ""));
+		stringRow5 = (Arrays.toString(row5New).replace("[", "").replace("]", "").replace(",", ""));
+		stringRow6 = (Arrays.toString(row6New).replace("[", "").replace("]", "").replace(",", ""));
+		stringRow7 = (Arrays.toString(row7New).replace("[", "").replace("]", "").replace(",", ""));
+		stringRow8 = (Arrays.toString(row8New).replace("[", "").replace("]", "").replace(",", ""));
+		stringRow9 = (Arrays.toString(row9New).replace("[", "").replace("]", "").replace(",", ""));
+		stringBoard = stringRow1 + "\n" + stringRow2 + "\n" + stringRow3 + "\n" + stringRow4 + "\n" + stringRow5 + "\n" + stringRow6 
+					  + "\n" +stringRow7 + "\n" +stringRow8 + "\n" +stringRow9 + "\n";				
+		
+		JOptionPane.showMessageDialog(null, "After placing your ships, you will then guess where the computer's ships are using coordinates! "
+									  + "\n     - For example, D3, F5, A1, B7, A4, H2, etc.! \n     "
+									  + "- The first player who hits all ships (17 boxes) first wins! \n \n" + stringBoard 
+									  + "\n \n Symbols:\n"
+									  + "     - (-) = Water \n"
+									  + "     - (X) = Ship \n"
+									  + "     - (*) = Hit (This symbol is different in-game).\n"
+									  + "     - (/) = Hit Water", "Tutorial", JOptionPane.INFORMATION_MESSAGE);
+	}
+	
+	/**
+	 * Instantiates credits.
+	 */
+	public static void credits() {
+		JOptionPane.showMessageDialog(null, "Thank you to the following who wouldn't have made this game possible! \n"
+									  + "     - Mr. Slater: Thank you so much for all the opportunities you've given me these past 2 years! Thank you for the skills you've given me, which will bring me onto university! \n"
+									  + "     - Kayla: Thank you for the idea to build this game LOL. The iMessage games really gave us inspiration!\n"
+									  + "     - YouTube and Google: For helping me look up stuff that I forgot to do (like how to make arrays O_O).\n"
+									  + "     - My dog Dean, for sleeping beside me majority of the time as I code this!\n"
+									  + "     - And of course, myself! Thought I wouldn't be able to finish a comp sci course with 1k lines of code after learning Java since February 2023! (Java is actually fun?!) :) ",
+									  "Credits!", JOptionPane.INFORMATION_MESSAGE);
+	}
+	
+}
